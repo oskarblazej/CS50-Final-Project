@@ -1,0 +1,42 @@
+{%extends "layout.html"%}
+{% block main %}
+
+    <div class="add-section">
+        <form action="/add/" method="post">
+            <input class="form-control mx-auto w-auto" name="taskname" placeholder="Task Name" type="text" required>
+            <button class="btn btn-success" type="submit">Add</button>
+        </form>
+    </div>
+
+    <div class="mb-3 list_tasks">
+        <form action='/change/' method="post">
+            <input class="form-control mx-auto w-auto" name="editName" placeholder="Edit Name" type="text">
+            <input type="submit" class="btn btn-primary" name="submit_button" value="Edit"></button>
+            <input type="submit" class="btn btn-danger" name="submit_button" value="Remove"></button>
+            <table id="table" class="table">
+                <thead>
+                    <tr>
+                        <th scope="col"></th>
+                        <th scope="col">Name</th>
+                        <th scope="col">Charged Time</th>
+                        <th scope="col">Charge</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for task in tasks %}
+                    <tr>
+                        <td><input type="radio" name="task_id" value='{{ task.task_id }}' required></td>
+                        <td>
+                        <p>{{ task.name }}</p>
+                        </td>
+        </form>
+                        <td id='result'>{{task.charged|format_time}}</td>
+                        <td>
+                        <button type="button" class="btn btn-warning" id="{{ task.task_id }}" onclick="charge_time(this.id)"><i class="fa fa-clock-o"></i></button>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+    </div>
+{% endblock %}
