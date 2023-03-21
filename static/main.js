@@ -1,7 +1,7 @@
 const stpw = document.getElementById("stopwatch");
 const result = document.getElementById("result");
 
-let state = {
+let timer = {
     interval: null,
     time: 0,
 };
@@ -15,25 +15,25 @@ let clock = {
 function stopwatch() {
     if (stpw.classList.contains("inactive")) {
         stpw.classList.replace("inactive", "active");
-        state.interval = setInterval((time) => {
-            state.time += 1;
-            clock.sec = Math.floor((state.time) % 60);
-            clock.min = Math.floor((state.time / (60)) % 60);
-            clock.h = Math.floor((state.time / (60 * 60)) % 60);
+        timer.interval = setInterval((time) => {
+            timer.time += 1;
+            clock.sec = Math.floor((timer.time) % 60);
+            clock.min = Math.floor((timer.time / (60)) % 60);
+            clock.h = Math.floor((timer.time / (60 * 60)) % 60);
             stpw.textContent = digit(clock.h) + ":" + digit(clock.min) + ":" + digit(clock.sec);
             stpw.textContent = digit(clock.h) + ":" + digit(clock.min) + ":" + digit(clock.sec);
         }, 1000);
         return;
     }
-    clearInterval(state.interval);
+    clearInterval(timer.interval);
     stpw.classList.replace("active", "inactive");
 }
 
 function charge_time(btn_id) {
-    clearInterval(state.interval);
+    clearInterval(timer.interval);
     let data = {
         'task_id': btn_id,
-        'time': state.time,
+        'time': timer.time,
     }
     $.ajax({
         url: '/timer',
@@ -45,7 +45,7 @@ function charge_time(btn_id) {
             console.log(response);
         }
     });
-    state.time = 0;
+    timer.time = 0;
     stpw.classList.replace("active", "inactive");
     stopwatch();
 }
@@ -87,9 +87,9 @@ function changeTheme() {
 document.addEventListener('DOMContentLoaded', function () {
     const body = document.body;
     const theme = localStorage.getItem('theme');
-    const storedState = JSON.parse(localStorage.getItem('stopwatchState'));
-    if (storedState) {
-        state.time = storedState.time;
+    const storedtimer = JSON.parse(localStorage.getItem('stopwatchtimer'));
+    if (storedtimer) {
+        timer.time = storedtimer.time;
         stopwatch();
     }
     if (theme) {
@@ -99,7 +99,7 @@ document.addEventListener('DOMContentLoaded', function () {
     }
 });
 
-// On page unload, store the stopwatch state in localStorage
+// On page unload, store the stopwatch timer in localStorage
 window.addEventListener('beforeunload', function () {
-    localStorage.setItem('stopwatchState', JSON.stringify(state));
+    localStorage.setItem('stopwatchtimer', JSON.stringify(timer));
 });
