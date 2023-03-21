@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 # TODO App with Charge Time functionality
 ## CS-50 Final Project
 #### Video Demo:  Hidden
@@ -19,6 +20,10 @@ website interactive were developed using Vanilla JavaScript. Jinja templates wer
 After small research I found that CS50 Staff allows to use SQL from cs50 library so I manage my database using that.
 
 Also I used decorator to check that user needs to be logged in, that is similary developed as this in PSet 9.
+=======
+# CS50-Final-Project
+CS50 Final Project - Web app to charge time on specific tasks implemented in Flask.
+>>>>>>> d648add550fe2ba14550fa3f438f255e58c4150e
 
 
 ### app.py
